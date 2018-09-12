@@ -2,6 +2,7 @@ package com.hfad.workout;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,11 @@ public class WorkoutDetailFragment extends Fragment {
 
     private long workoutId;
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong("workoutId",workoutId);
+    }
 
     public WorkoutDetailFragment() {
         // Required empty public constructor
@@ -26,6 +32,7 @@ public class WorkoutDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        if (savedInstanceState!=null) workoutId=savedInstanceState.getLong("workoutId");
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }
 public void setWorkout(long id){

@@ -9,10 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StopwatchFragment extends Fragment {
+public class StopwatchFragment extends Fragment implements View.OnClickListener {
     private boolean running = false;
     private int seconds = 0;
     private boolean wasRunning = false;
@@ -31,6 +32,14 @@ public class StopwatchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View layout =inflater.inflate(R.layout.fragment_stopwatch, container, false);
        runTimer(layout);
+
+        Button startbutton = (Button) layout.findViewById(R.id.bStart);
+        startbutton.setOnClickListener(this);
+        Button stopbutton = (Button) layout.findViewById(R.id.bStop);
+        stopbutton.setOnClickListener(this);
+        Button resetbutton = (Button) layout.findViewById(R.id.bReset);
+        resetbutton.setOnClickListener(this);
+
        return layout;
     }
 
@@ -108,5 +117,14 @@ public class StopwatchFragment extends Fragment {
                 handler.postDelayed(this, 1000);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bStart: onClickStartb(v); break;
+            case R.id.bStop: onClickStopb(v); break;
+            case R.id.bReset: onClickResetb(v); break;
+        }
     }
 }
